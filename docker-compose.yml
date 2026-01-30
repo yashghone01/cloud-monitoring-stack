@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  sensor:
+    image: sensor-fixed
+    container_name: sensor
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          memory: 80M
+
+  victoria:
+    image: victoriametrics/victoria-metrics
+    container_name: victoria
+    command:
+      - "--retentionPeriod=1"
+      - "--promscrape.config=/etc/prometheus/prometheus.yml"
+    volumes:
+      - ./monitoring/vm.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "8428:8428"
+    deploy:
+      resources:
+        limits:
+          memory: 120M
+
