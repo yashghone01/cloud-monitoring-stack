@@ -61,4 +61,4 @@ This simulates real edge-device constraints.
 
 ##Author
 Yash Ghone
-<img width="1366" height="768" alt="Project completion SS" src="https://github.com/user-attachments/assets/82a333b0-c9eb-4f49-aee2-bd5a9acb8032" />
+
