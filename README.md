@@ -1,4 +1,4 @@
-# Sensor Observability Stack (DevOps Project)
+# Cloud Monitoring Stack (DevOps Project)
 
 A production-style observability system built using Docker, Python and VictoriaMetrics to monitor a simulated sensor API in real time.
 
