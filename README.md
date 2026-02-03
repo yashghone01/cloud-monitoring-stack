@@ -1,64 +1,56 @@
-# Origin DevOps Assignment — Sensor Monitoring Stack
+# Sensor Observability Stack (DevOps Project)
 
-This project deploys a simulated sensor service and a monitoring stack using Docker and VictoriaMetrics.
+A production-style observability system built using Docker, Python and VictoriaMetrics to monitor a simulated sensor API in real time.
 
-## Architecture
-Sensor Service (Flask)
-→ Exposes Prometheus-compatible metrics  
-→ VictoriaMetrics scrapes them  
-→ VMUI visualizes them in real time  
+## 🚀 What this project demonstrates
+- Dockerized microservices
+- Prometheus-style metrics exposure
+- Time-series scraping & storage using VictoriaMetrics
+- Live visualization using VMUI
+- Memory-limited containers to simulate real infrastructure
+- Cloud deployment on AWS EC2
 
-## Services
+## 🧩 Architecture
+Client → Sensor API → /metrics → VictoriaMetrics → VMUI Dashboard
 
-### Sensor Service
-- Flask API exposing:
-  - /sensor
-  - /metrics
-- Simulates:
-  - CPU spikes
-  - High memory payloads
-  - Request latency
-- Metrics:
-  - sensor_requests_total
-  - sensor_processing_latency_seconds
-  - sensor_cpu_spike
+## 📦 Components
 
-### VictoriaMetrics
-- Scrapes sensor metrics
-- Stores time series
-- Provides VMUI dashboard on port `8428`
+### 1. Sensor Service (Flask)
+A Python service that simulates IoT sensor traffic and exposes:
+- Request count
+- CPU spike state
+- Request latency
 
----
+Metrics are exported in Prometheus format at:
 
-## How to Run
+### 2. VictoriaMetrics
+Scrapes the sensor metrics every 5 seconds and stores time-series data.
+
+Exposes:
+- Query API
+- VMUI dashboard
+
+## 🐳 How to Run
 
 ```bash
-docker-compose up
+docker-compose up -d
 
-## Access:
+Sensor API:
+http://localhost:8000/sensor
 
-Sensor API: http://localhost:8000/sensor
+Metrics:
+http://localhost:8000/metrics
 
-Metrics: http://localhost:8000/metrics
+Dashboard:
+http://localhost:8428/vmui
 
-VMUI: http://localhost:8428/vmui
+Example Query:
+sensor_requests_total
+Shows number of sensor requests processed.
 
-# Resource Limits
-Docker Compose enforces memory limits:
+☁️ Cloud Deployment
 
-Sensor: 80 MB
+This stack is deployed on AWS EC2 using Docker.
 
-VictoriaMetrics: 120 MB
-
-This simulates real edge-device constraints.
-
-##Tech Stack
-1. Python (Flask)
-2. Prometheus client
-3. Docker
-4. Docker Compose
-5. VictoriaMetrics
-
-##Author
-Yash Ghone
-
+Public VMUI:
+http://<ec2-ip>:8428/vmui
